@@ -1,21 +1,31 @@
 package org.example.chapter3;
 
 /**
-    重写equals之后，关于重写 Hashcode 的问题
-    1.Object 类中的hashcode 方法得到的值，是根据对象的内部存储地址生成一个哈希码。
-        实际上，它将对象的内存地址转换为一个整数值，并返回该值作为哈希码。
-        需要注意的是，由于每个对象的存储地址是实时分配的，所以每次程序启动时哈希码都会发生变化。
-        目前的结论，理论上 Object 的Hashcode方法基于对象的内存地址来计算，所以Hashcode值不会相同；
+ After overwriting the equals method, there are some issues regarding overwriting the hashCode method:
+    1. The hashCode method from the Object class calculates the hash code based on the memory address of the object,
+        resulting in an integer value. However, it's important to note that the memory address of the same object may change each time the program is run,
+        leading to different hashCode values.
+    2. When overwriting the equals method, it is necessary to also overwrite the hashCode method.
+        Before overwriting, the equals method would determine if two objects are equal based on their memory addresses.
+        Thus, the hashCode values would be the same for these objects.
+        After overwriting the equals method to use a different approach for determining equality,
+        the hashCode method should also be updated to ensure consistency with the equals method.
+    3. The hashCode method is required for supporting hash tables, such as those provided by the java.util.HashMap class,
+        which rely on hash codes to efficiently locate and store objects.
 
-    2.一旦重写了equals方法，那么需要重写Hashcode方法，为什么？
-        为了维护一致性和准确性。
-        因为equals()方法是用于比较两个对象是否相等的方法，而自Object类继承的 hashCode()方法是根据对象的内存地址来判断的，
-        所以两个对象就算equals相同，Hashcode也不相同，所以为了维持一致性，需要根据equals来重写hashcode方法
-
-    3.为什么要提供Hashcode这么一个东西？ 看 Object 类的 hashcode 方法的注释：
-        Returns a hash code value for the object.
-        This method is supported for the benefit of hash tables such as those provided by java.util.HashMap
-        返回值是 int，调用native方法实现的。
+ my translattion (with some problems)
+    after overwrite equals method, some issue about overwriting hashcode method
+        1. the return value of hashcode method from Object class is calculating with memory address,
+            and with some mechanism it return a integer value.
+            note: every time you run the program, the address of the same object will change, so hashcode value will change;
+        2. after overwrite the equals method, why should overwrite hashcode method?
+            cause we use equals method to estimate whether two object is equals, before overwriting, it estimate two objects by their memory address,
+            so hashcode values are the same, when overwriting the equals method, we use another way to estimate the equals of two objects,
+            so to correspoding with equals method, we should overwrite hashcode
+        3. why we need thid hashcode?
+            let have a look at the doc of hashcode method from Oject class
+            "Returns a hash code value for the object.
+            This method is supported for the benefit of hash tables such as those provided by java.util.HashMap"
  */
 public class Code11 {
 
