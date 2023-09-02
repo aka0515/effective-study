@@ -1,4 +1,4 @@
-package org.example.chapter3;
+package org.example.chapter3.item11;
 
 /**
     重写equals之后，关于重写 Hashcode 的问题
